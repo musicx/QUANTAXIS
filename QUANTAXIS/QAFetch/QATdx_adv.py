@@ -76,7 +76,7 @@ class QA_Tdx_Executor():
         api = TdxHq_API(raise_exception=True, auto_retry=False)
         _time = datetime.datetime.now()
         try:
-            with api.connect(ip, port, time_out=0.05):
+            with api.connect(ip, port):
                 if len(api.get_security_list(0, 1)) > 800:
                     return (datetime.datetime.now() - _time).total_seconds()
                 else:
@@ -138,7 +138,7 @@ class QA_Tdx_Executor():
                 if _sec < 0.1:
                     try:
                         self._queue.put(TdxHq_API(heartbeat=False).connect(
-                            ip=item['ip'], port=item['port'], time_out=0.05))
+                            ip=item['ip'], port=item['port']))
                     except:
                         pass
         else:

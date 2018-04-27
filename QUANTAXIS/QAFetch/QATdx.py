@@ -48,14 +48,14 @@ def ping(ip, port=7709, type_='stock'):
     __time1 = datetime.datetime.now()
     try:
         if type_ in ['stock']:
-            with api.connect(ip, port, time_out=0.7):
+            with api.connect(ip, port):
                 if len(api.get_security_list(0, 1)) > 800:
                     return datetime.datetime.now() - __time1
                 else:
                     print('Bad STOCKIP REPSONSE %s' % ip)
                     return datetime.timedelta(9, 9, 0)
         elif type_ in ['future']:
-            with apix.connect(ip, port, time_out=0.7):
+            with apix.connect(ip, port):
                 if apix.get_instrument_count() > 10000:
                     return datetime.datetime.now() - __time1
                 else:
@@ -142,7 +142,7 @@ def QA_fetch_get_stock_day(code, start_date, end_date, if_fq='00', frequence='da
     """
 
     api = TdxHq_API()
-    with api.connect(ip, port, time_out=0.7):
+    with api.connect(ip, port):
 
         if frequence in ['day', 'd', 'D', 'DAY', 'Day']:
             frequence = 9
